@@ -11,6 +11,7 @@ import Hidden from 'material-ui/Hidden';
 import Divider from 'material-ui/Divider';
 import MenuIcon from 'material-ui-icons/Menu';
 import LeftSide from './LeftSide'
+import MainSearch from './MainSearch'
 
 const drawerWidth = 240;
 
@@ -32,6 +33,10 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
     },
+  },
+  title: {
+    display: 'flex',
+    flex: 1,
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
@@ -81,13 +86,14 @@ class ResponsiveDrawer extends React.Component {
                 color="contrast"
                 aria-label="open drawer"
                 onClick={this.handleDrawerToggle}
-                /* className={classes.navIconHide} */
+                className={classes.navIconHide} 
               >
                 <MenuIcon />
               </IconButton>
-              <Typography type="title" color="inherit" noWrap>
+              <Typography type="title" color="inherit" className={classes.title} noWrap>
                 3inns.cn
               </Typography>
+              <MainSearch />
             </Toolbar>
           </AppBar>
           <Hidden mdUp>

@@ -13,7 +13,7 @@ import StarBorder from 'material-ui-icons/StarBorder';
 
 const styles = theme => ({
   root: {
-    height: '100%',
+    height: '100vh',
     background: theme.palette.background.paper,
   },
   nested: {
