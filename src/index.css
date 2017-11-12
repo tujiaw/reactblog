@@ -2,4 +2,13 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background: rgb(236, 239, 241);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }

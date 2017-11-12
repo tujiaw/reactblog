@@ -33,7 +33,7 @@ class MainSearch extends React.Component {
         return (
             <div className={classes.root}>
                 <IconButton onClick={this.handleShowInput} className={classes.searchButton}>
-                    <i class="material-icons">search</i>
+                    <i className="material-icons">search</i>
                 </IconButton>
             {
                 this.state.showInput 
@@ -44,7 +44,7 @@ class MainSearch extends React.Component {
                     onChange={this.handleChange('weight')}
                     endAdornment={<InputAdornment position="end">
                         <IconButton onClick={this.handleClearText} className={classes.clearButton}>
-                            <i class="material-icons">clear</i>
+                            <i className="material-icons">clear</i>
                         </IconButton>
                     </InputAdornment>}
                 />

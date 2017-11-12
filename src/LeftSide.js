@@ -10,10 +10,11 @@ import SendIcon from 'material-ui-icons/Send';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import StarBorder from 'material-ui-icons/StarBorder';
+import Card, { CardHeader, CardActions, CardContent } from 'material-ui/Card';
+import Config from './Config'
 
 const styles = theme => ({
   root: {
-    height: '100vh',
     background: theme.palette.background.paper,
   },
   nested: {
@@ -29,38 +30,18 @@ class LeftSide extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, tagsCount } = this.props;
 
     return (
-      <List className={classes.root} subheader={<ListSubheader>三家店 - 泊客网</ListSubheader>}>
-        <ListItem button>
-          <ListItemIcon>
-            <SendIcon />
-          </ListItemIcon>
-          <ListItemText inset primary="主页" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <DraftsIcon />
-          </ListItemIcon>
-          <ListItemText inset primary="关于" />
-        </ListItem>
-        <ListItem button onClick={this.handleClick}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText inset primary="链接" />
-          {this.state.open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText inset primary="小程序" />
-          </ListItem>
-        </Collapse>
-      </List>
+      <Card className={classes.root}>
+        <CardContent>
+          <List dense={true} subheader={<ListSubheader>文章分类</ListSubheader>}>
+            {tagsCount && tagsCount.map((tag, index) => {
+              return <ListItem key={index} button><ListItemText primary={tag.name + ' (' + tag.count + ')' } /></ListItem>
+            })}
+          </List>
+        </CardContent>
+      </Card>
     );
   }
 }
