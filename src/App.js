@@ -1,20 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
-import Drawer from 'material-ui/Drawer'
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import List from 'material-ui/List'
-import Typography from 'material-ui/Typography'
-import IconButton from 'material-ui/IconButton'
-import Hidden from 'material-ui/Hidden'
-import Divider from 'material-ui/Divider'
+import { AppBar, Toolbar, Typography, IconButton, Grid } from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu'
 import LeftSide from './LeftSide'
+import HotPosts from './HotPosts'
 import MainSearch from './MainSearch'
 import PostList from './PostList'
 import fetch from './fetch'
-import Grid from 'material-ui/Grid'
 import Stepper from './Stepper'
 
 const styles = theme => ({
@@ -74,7 +67,7 @@ class ResponsiveDrawer extends React.Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.root}>
@@ -103,6 +96,8 @@ class ResponsiveDrawer extends React.Component {
                     <Stepper />
                   </Grid>
                   <Grid item xs={4} className={classes.side}>
+                    <HotPosts hotPosts={this.state.postsData.hotPosts} />
+                    <br />
                     <LeftSide tagsCount={this.state.postsData.tagsCount} />
                   </Grid>
                 </Grid>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { withStyles } from 'material-ui/styles'
 import PostCard from './PostCard'
-import List, { ListItem, ListItemText } from 'material-ui/List'
+import List, { ListItem } from 'material-ui/List'
 
 function PostList(props) {
     const { classes, posts } = props;

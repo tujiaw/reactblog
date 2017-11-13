@@ -1,12 +1,7 @@
 import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import { IconButton, Icon, TextField } from 'material-ui';
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
-import { FormControl, FormHelperText } from 'material-ui/Form';
-import Visibility from 'material-ui-icons/Visibility';
-import VisibilityOff from 'material-ui-icons/VisibilityOff';
+import { IconButton } from 'material-ui';
+import Input, { InputAdornment } from 'material-ui/Input';
 
 class MainSearch extends React.Component {
     state = {
