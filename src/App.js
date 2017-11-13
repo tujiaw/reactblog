@@ -1,14 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
+import { Router, Route, Switch } from 'react-router-dom'
+import history from './common/history'
+import NotFound from './containers/404'
+import PostPage from './containers/PostPage'
 import { AppBar, Toolbar, Typography, IconButton, Grid } from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu'
-import LeftSide from './LeftSide'
-import HotPosts from './HotPosts'
-import MainSearch from './MainSearch'
-import PostList from './PostList'
-import fetch from './fetch'
-import Stepper from './Stepper'
+import LeftSide from './containers/LeftSide'
+import HotPosts from './containers/HotPosts'
+import Search from './components/Search'
+import PostList from './containers/PostList'
+import fetch from './common/fetch'
+import Stepper from './containers/Stepper'
 
 const styles = theme => ({
   root: {
@@ -49,7 +53,7 @@ const styles = theme => ({
   }
 });
 
-class ResponsiveDrawer extends React.Component {
+class App extends React.Component {
   state = {
     sideOpen: false,
     postsData: {},
@@ -65,6 +69,15 @@ class ResponsiveDrawer extends React.Component {
   handleDrawerToggle = () => {
     this.setState({ sideOpen: !this.state.sideOpen });
   };
+
+  HomePage = () => {
+    return (
+      <div>
+        <PostList posts={this.state.postsData.posts} />
+        <Stepper />
+      </div>
+    )
+  }
 
   render() {
     const { classes } = this.props;
@@ -84,7 +97,7 @@ class ResponsiveDrawer extends React.Component {
               <Typography type="title" color="inherit" className={classes.title} noWrap>
                 3inns.cn
               </Typography>
-              <MainSearch />
+              <Search />
             </Toolbar>
           </AppBar>
           <Grid container justify='center'>
@@ -92,8 +105,13 @@ class ResponsiveDrawer extends React.Component {
               <main className={classes.content}>
                 <Grid container justify='center'>
                   <Grid item xs={8}>
-                    <PostList posts={this.state.postsData.posts} />
-                    <Stepper />
+                    <Router history={history}>
+                        <Switch>
+                          <Route exact path="/" component={this.HomePage} />
+                          <Route path="/post/:id" component={PostPage} />
+                          <Route component={NotFound} />
+                        </Switch>
+                    </Router>
                   </Grid>
                   <Grid item xs={4} className={classes.side}>
                     <HotPosts hotPosts={this.state.postsData.hotPosts} />
@@ -109,9 +127,9 @@ class ResponsiveDrawer extends React.Component {
   }
 }
 
-ResponsiveDrawer.propTypes = {
+App.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);
+export default withStyles(styles, { withTheme: true })(App);
