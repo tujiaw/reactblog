@@ -14,7 +14,7 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit * 4,
   },
   cardContent: {
-    paddingRight: 0
+    paddingRight: 2
   }
 });
 
