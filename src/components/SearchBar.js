@@ -36,6 +36,7 @@ const styles = theme => ({
     fontSize: 18,
   },
   clearButton: {
+    cursor: 'hand',
     position: 'relative',
     left: -30,
     top: 28,
@@ -52,22 +53,30 @@ const styles = theme => ({
 class SearchBar extends React.Component {
   state = {
     iconName: 'search',
+    inputText: '',
   }
 
   handleChanged = (event) => {
     if (event.target.value.length) {
-      this.setState({ iconName: 'clear'})
+      this.setState({ iconName: 'clear' })
     } else {
       this.setState({ iconName: 'search' })
     }
   }
 
-  handleClick = () => {
-    
+  handleKeyPress = (event) => {
+    if (event.key === 'Enter' || event.key === 'enter') {
+      console.log('dddddddddfdfdd');
+    }
   }
 
-  inputRef = (obj) => {
-    console.log(obj)
+  handleClick = () => {
+    this.inputObj.value = '';
+    this.setState({ iconName: 'search' })
+  }
+
+  refInput = (obj) => {
+    this.inputObj = obj;
   }
 
   render() {
@@ -79,6 +88,7 @@ class SearchBar extends React.Component {
         defaultValue=""
         label="本站搜索"
         onChange={this.handleChanged}
+        onKeyPress={this.handleKeyPress}
         inputRef={this.refInput}
         InputProps={{
           disableUnderline: true,

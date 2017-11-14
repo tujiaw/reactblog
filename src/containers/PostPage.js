@@ -41,7 +41,7 @@ class PostPage extends React.Component {
                         return <Chip key={index} className={classes.chip} label={tag} />
                     })}
                     </div>
-                    <div class="markdown-body" dangerouslySetInnerHTML={{ __html: post.content }}></div>
+                    <div className="markdown-body" dangerouslySetInnerHTML={{ __html: post.content }}></div>
                 </CardContent>
                 <CardActions>
                     <Button dense>阅读全文 »</Button>

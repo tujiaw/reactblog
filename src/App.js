@@ -5,7 +5,9 @@ import { Router, Route, Switch } from 'react-router-dom'
 import history from './common/history'
 import NotFound from './containers/404'
 import PostPage from './containers/PostPage'
-import { AppBar, Toolbar, Typography, IconButton, Grid, Hidden } from 'material-ui'
+import { AppBar, Toolbar, Typography, 
+  IconButton, Grid, Hidden 
+} from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu'
 import LeftSide from './containers/LeftSide'
 import HotPosts from './containers/HotPosts'
@@ -128,11 +130,11 @@ const styles = theme => ({
     // backgroundColor: theme.palette.background.default,
     width: '100%',
     padding: theme.spacing.unit * 3,
-    height: 'calc(100% - 56px)',
-    marginTop: 56,
+    height: 'calc(100% - 40px)',
+    marginTop: 40,
     [theme.breakpoints.up('md')]: {
-      height: 'calc(100% - 66px)',
-      marginTop: 66,
+      height: 'calc(100% - 40px)',
+      marginTop: 40,
     },
   },
   side: {
@@ -144,7 +146,6 @@ const styles = theme => ({
 
 App.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
 };
 
 export default compose(withStyles(styles, { withTheme: true }), withWidth())(App);
