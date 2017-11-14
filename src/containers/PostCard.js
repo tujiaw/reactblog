@@ -5,7 +5,7 @@ import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Chip from 'material-ui/Chip';
 import Typography from 'material-ui/Typography';
-import Config from '../common/Config'
+import config from '../common/config'
 import { Link } from 'react-router-dom'
 
 function PostCard(props) {
@@ -19,7 +19,6 @@ function PostCard(props) {
           2017-11-04 10:42 阅读({ post.pv })
           </Typography>
           <Typography type="headline" component="h2">
-            {/* <a href={Config.HOST_PREFIX + '/post/' + post._id}>{ post.title }</a> */}
             <Link to={'/post/' + post._id}>{ post.title }</Link>
           </Typography>
           <div className={classes.chipGroup}>

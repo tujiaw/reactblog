@@ -5,57 +5,20 @@ import { Router, Route, Switch } from 'react-router-dom'
 import history from './common/history'
 import NotFound from './containers/404'
 import PostPage from './containers/PostPage'
-import { AppBar, Toolbar, Typography, IconButton, Grid } from 'material-ui'
+import { AppBar, Toolbar, Typography, IconButton, Grid, Hidden } from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu'
 import LeftSide from './containers/LeftSide'
 import HotPosts from './containers/HotPosts'
+import SearchBarCard from './containers/SearchBarCard';
 import Search from './components/Search'
 import PostList from './containers/PostList'
 import fetch from './common/fetch'
 import Stepper from './containers/Stepper'
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    height: '100%',
-    zIndex: 1,
-    overflow: 'hidden',
-  },
-  appFrame: {
-    display: 'flex',
-    flex: 1,
-    width: '100%',
-  },
-  title: {
-    display: 'flex',
-    flex: 1,
-  },
-  navIconHide: {
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
-  content: {
-    // backgroundColor: theme.palette.background.default,
-    width: '100%',
-    padding: theme.spacing.unit * 3,
-    height: 'calc(100% - 56px)',
-    marginTop: 26,
-    [theme.breakpoints.up('sm')]: {
-      height: 'calc(100% - 44px)',
-      marginTop: 44,
-    },
-  },
-  side: {
-    minWidth: 260,
-    maxWidth: 260,
-    marginTop: 20,
-  }
-});
+import compose from 'recompose/compose';
+import withWidth from 'material-ui/utils/withWidth';
 
 class App extends React.Component {
   state = {
-    sideOpen: false,
     postsData: {},
   };
 
@@ -66,9 +29,30 @@ class App extends React.Component {
     })
   }
 
-  handleDrawerToggle = () => {
-    this.setState({ sideOpen: !this.state.sideOpen });
-  };
+  ContentRouter = () => {
+    return (
+      <Router history={history}>
+        <Switch>
+          <Route exact path="/" component={this.HomePage} />
+          <Route path="/post/:id" component={PostPage} />
+          <Route component={NotFound} />
+        </Switch>
+    </Router>
+    )
+  }
+
+  SideBar = (props) => {
+    const { classes } = this.props;
+    return (
+      <Grid item xs={4} className={classes.side}>
+        <SearchBarCard />
+        <br />
+        <HotPosts hotPosts={this.state.postsData.hotPosts} />
+        <br />
+        <LeftSide tagsCount={this.state.postsData.tagsCount} />
+      </Grid> 
+    )
+  }
 
   HomePage = () => {
     return (
@@ -104,20 +88,12 @@ class App extends React.Component {
             <Grid item xs={10}>
               <main className={classes.content}>
                 <Grid container justify='center'>
-                  <Grid item xs={8}>
-                    <Router history={history}>
-                        <Switch>
-                          <Route exact path="/" component={this.HomePage} />
-                          <Route path="/post/:id" component={PostPage} />
-                          <Route component={NotFound} />
-                        </Switch>
-                    </Router>
+                  <Grid item xs={this.props.width === 'sm' ? 10 : 8}>
+                    { this.ContentRouter() }
                   </Grid>
-                  <Grid item xs={4} className={classes.side}>
-                    <HotPosts hotPosts={this.state.postsData.hotPosts} />
-                    <br />
-                    <LeftSide tagsCount={this.state.postsData.tagsCount} />
-                  </Grid>
+                  <Hidden smDown>
+                    { this.SideBar(this.props) }
+                  </Hidden>
                 </Grid>
               </main>
             </Grid>
@@ -127,9 +103,48 @@ class App extends React.Component {
   }
 }
 
+const styles = theme => ({
+  root: {
+    width: '100%',
+    height: '100%',
+    zIndex: 1,
+    overflow: 'hidden',
+  },
+  appFrame: {
+    display: 'flex',
+    flex: 1,
+    width: '100%',
+  },
+  title: {
+    display: 'flex',
+    flex: 1,
+  },
+  navIconHide: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  content: {
+    // backgroundColor: theme.palette.background.default,
+    width: '100%',
+    padding: theme.spacing.unit * 3,
+    height: 'calc(100% - 56px)',
+    marginTop: 56,
+    [theme.breakpoints.up('md')]: {
+      height: 'calc(100% - 66px)',
+      marginTop: 66,
+    },
+  },
+  side: {
+    minWidth: 260,
+    maxWidth: 260,
+    marginTop: 20,
+  }
+});
+
 App.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(App);
+export default compose(withStyles(styles, { withTheme: true }), withWidth())(App);

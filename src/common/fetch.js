@@ -1,10 +1,10 @@
 import axios from 'axios'
-import Config from './Config'
+import config from './config'
 
 const fetch = {
     getPosts: () => {
         return new Promise((resolve, reject) => {
-            axios.get(Config.API_PREFIX + '/list').then((res) => {
+            axios.get(config.API_PREFIX + '/list').then((res) => {
                 resolve(res.data);
             }).catch((error) => {
                 console.log('getPosts error:' + error);
@@ -14,7 +14,7 @@ const fetch = {
     },
     getPost: (id) => {
         return new Promise((resolve, reject) => {
-            axios.get(Config.API_PREFIX + '/post/' + id).then((res) => {
+            axios.get(config.API_PREFIX + '/post/' + id).then((res) => {
                 resolve(res.data);
             }).catch((error) => {
                 console.log('getPost error:' + error);
