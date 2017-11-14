@@ -4,23 +4,25 @@ import { withStyles } from 'material-ui/styles'
 import { Router, Route, Switch } from 'react-router-dom'
 import history from './common/history'
 import NotFound from './containers/404'
-import PostPage from './containers/PostPage'
+import ShowPost from './containers/ShowPost'
 import { AppBar, Toolbar, Typography, 
-  IconButton, Grid, Hidden 
+  IconButton, Grid, Hidden, Button, Drawer
 } from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu'
-import LeftSide from './containers/LeftSide'
-import HotPosts from './containers/HotPosts'
+import CategoryList from './containers/CategoryList'
+import HotPostList from './containers/HotPostList'
 import SearchBarCard from './containers/SearchBarCard';
-import Search from './components/Search'
-import PostList from './containers/PostList'
+import PostCardList from './containers/PostCardList'
 import fetch from './common/fetch'
 import Stepper from './containers/Stepper'
 import compose from 'recompose/compose';
 import withWidth from 'material-ui/utils/withWidth';
+import { Link } from 'react-router-dom'
+import LeftSideBar from './components/LeftSideBar'
 
 class App extends React.Component {
   state = {
+    left: false,
     postsData: {},
   };
 
@@ -36,22 +38,22 @@ class App extends React.Component {
       <Router history={history}>
         <Switch>
           <Route exact path="/" component={this.HomePage} />
-          <Route path="/post/:id" component={PostPage} />
+          <Route path="/post/:id" component={ShowPost} />
           <Route component={NotFound} />
         </Switch>
     </Router>
     )
   }
 
-  SideBar = (props) => {
+  RightSideBar = (props) => {
     const { classes } = this.props;
     return (
       <Grid item xs={4} className={classes.side}>
         <SearchBarCard />
         <br />
-        <HotPosts hotPosts={this.state.postsData.hotPosts} />
+        <HotPostList hotPosts={this.state.postsData.hotPosts} />
         <br />
-        <LeftSide tagsCount={this.state.postsData.tagsCount} />
+        <CategoryList tagsCount={this.state.postsData.tagsCount} />
       </Grid> 
     )
   }
@@ -59,31 +61,46 @@ class App extends React.Component {
   HomePage = () => {
     return (
       <div>
-        <PostList posts={this.state.postsData.posts} />
+        <PostCardList posts={this.state.postsData.posts} />
         <Stepper />
       </div>
     )
   }
+
+  toggleDrawer = (side, open) => () => {
+    this.setState({ [side]: open });
+  };
 
   render() {
     const { classes } = this.props;
 
     return (
       <div className={classes.root}>
+        <Drawer open={this.state.left} onRequestClose={this.toggleDrawer('left', false)}>
+          <div
+            tabIndex={0}
+            role="button"
+            onClick={this.toggleDrawer('left', false)}
+            onKeyDown={this.toggleDrawer('left', false)}
+          >
+            <LeftSideBar />
+          </div>
+        </Drawer>
           <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton
                 color="contrast"
                 aria-label="open drawer"
-                onClick={this.handleDrawerToggle}
-                className={classes.navIconHide} 
+                onClick={this.toggleDrawer('left', true)}
               >
                 <MenuIcon />
               </IconButton>
-              <Typography type="title" color="inherit" className={classes.title} noWrap>
-                3inns.cn
-              </Typography>
-              <Search />
+
+              <Button color="contrast" href="/">
+                <Typography type="title" color="inherit" className={classes.title} noWrap>
+                  3inns.cn
+                </Typography>
+              </Button>
             </Toolbar>
           </AppBar>
           <Grid container justify='center'>
@@ -94,7 +111,7 @@ class App extends React.Component {
                     { this.ContentRouter() }
                   </Grid>
                   <Hidden smDown>
-                    { this.SideBar(this.props) }
+                    { this.RightSideBar(this.props) }
                   </Hidden>
                 </Grid>
               </main>

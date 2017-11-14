@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography';
 import config from '../common/config'
 import { Link } from 'react-router-dom'
 
-class PostPage extends React.Component {
+class ShowPost extends React.Component {
     state = {
         postData: {}
     }
@@ -70,8 +70,8 @@ const styles = theme => ({
     }
   });
 
-PostPage.propTypes = {
+ShowPost.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PostPage);
+export default withStyles(styles)(ShowPost);

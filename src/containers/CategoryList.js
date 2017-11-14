@@ -14,7 +14,7 @@ const styles = theme => ({
   },
 });
 
-class HotPosts extends React.Component {
+class CategoryList extends React.Component {
   state = { open: true };
 
   handleClick = () => {
@@ -22,14 +22,14 @@ class HotPosts extends React.Component {
   };
 
   render() {
-    const { classes, hotPosts } = this.props;
+    const { classes, tagsCount } = this.props;
 
     return (
       <Card className={classes.root}>
         <CardContent>
-          <List dense={true} subheader={<ListSubheader>热门文章</ListSubheader>}>
-            {hotPosts && hotPosts.map((post, index) => {
-              return <ListItem key={index} button><ListItemText primary={ post.title } /></ListItem>
+          <List dense={true} subheader={<ListSubheader>文章分类</ListSubheader>}>
+            {tagsCount && tagsCount.map((tag, index) => {
+              return <ListItem key={index} button><ListItemText primary={tag.name + ' (' + tag.count + ')' } /></ListItem>
             })}
           </List>
         </CardContent>
@@ -38,8 +38,8 @@ class HotPosts extends React.Component {
   }
 }
 
-HotPosts.propTypes = {
+CategoryList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(HotPosts);
+export default withStyles(styles)(CategoryList);

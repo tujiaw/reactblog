@@ -12,8 +12,10 @@ const styles = theme => ({
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4,
-    paddingRight: theme.spacing.unit * 4,
   },
+  cardContent: {
+    paddingRight: 0
+  }
 });
 
 class SearchBarCard extends React.Component {
@@ -28,13 +30,12 @@ class SearchBarCard extends React.Component {
 
     return (
       <Card className={classes.root}>
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <SearchBar
             onChange={() => console.log('onChange')}
             onRequestSearch={() => console.log('onRequestSearch')}
             style={{
               margin: '0 auto',
-              maxWidth: 400
             }}
           />
         </CardContent>

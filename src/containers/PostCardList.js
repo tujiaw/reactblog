@@ -3,7 +3,7 @@ import { withStyles } from 'material-ui/styles'
 import PostCard from './PostCard'
 import List, { ListItem } from 'material-ui/List'
 
-function PostList(props) {
+function PostCardList(props) {
     const { classes, posts } = props;
     return (
         <div className={classes.root}>
@@ -24,4 +24,4 @@ const styles = theme => ({
     }
 });
 
-export default withStyles(styles)(PostList);
+export default withStyles(styles)(PostCardList);
