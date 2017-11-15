@@ -15,6 +15,14 @@ class ShowPost extends React.Component {
         postData: {}
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { match } = nextProps;
+        fetch.getPost(match.params.id).then((data) => {
+            this.setState({ postData: data })
+            console.log(data);
+        })
+    }
+    
     componentDidMount() {
         const { match } = this.props;
         fetch.getPost(match.params.id).then((data) => {
@@ -26,7 +34,6 @@ class ShowPost extends React.Component {
     render() {
         const { match, classes } = this.props;
         const { post, nextPost, prevPost } = this.state.postData;
-        console.log('match:' + JSON.stringify(match));
         return post 
         ? (
             <div className={classes.root}>
