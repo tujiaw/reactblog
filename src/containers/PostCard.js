@@ -23,7 +23,7 @@ function PostCard(props) {
           </Typography>
           <div className={classes.chipGroup}>
             { post.tags && post.tags.map((tag, index) => {
-                return <Chip key={index} className={classes.chip} label={tag} />
+                return tag.length ? <Chip key={index} className={classes.chip} label={tag} /> : null;
             })}
           </div>
           <Typography component="p">

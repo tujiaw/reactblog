@@ -14,7 +14,7 @@ import HotPostList from './containers/HotPostList'
 import SearchBarCard from './containers/SearchBarCard';
 import PostCardList from './containers/PostCardList'
 import fetch from './common/fetch'
-import Stepper from './containers/Stepper'
+import PostStepper from './containers/PostStepper'
 import compose from 'recompose/compose';
 import withWidth from 'material-ui/utils/withWidth';
 import { Link } from 'react-router-dom'
@@ -31,6 +31,14 @@ class App extends React.Component {
       console.log(data)
       this.setState({ postsData: data })
     })
+  }
+
+  HomePage = () => {
+    return (
+      <div>
+        <PostCardList posts={this.state.postsData.posts} />
+      </div>
+    )
   }
 
   ContentRouter = () => {
@@ -58,18 +66,23 @@ class App extends React.Component {
     )
   }
 
-  HomePage = () => {
-    return (
-      <div>
-        <PostCardList posts={this.state.postsData.posts} />
-        <Stepper />
-      </div>
-    )
-  }
-
   toggleDrawer = (side, open) => () => {
     this.setState({ [side]: open });
   };
+
+  contentSpacing = (props) => {
+    if (props.width === 'xs') {
+      return 12
+    } else if (props.width === 'sm') {
+      return 10
+    } else {
+      return 8
+    }
+  }
+
+  onHome = () => {
+    history.push('/')
+  }
 
   render() {
     const { classes } = this.props;
@@ -95,19 +108,19 @@ class App extends React.Component {
               >
                 <MenuIcon />
               </IconButton>
-
-              <Button color="contrast" href="/">
-                <Typography type="title" color="inherit" className={classes.title} noWrap>
-                  3inns.cn
-                </Typography>
-              </Button>
+              <Typography type="title" color="inherit" className={classes.title} noWrap>
+                3inns.cn
+              </Typography>
+              <IconButton color="contrast" aria-label="主页"onClick={this.onHome}>
+                <i className="material-icons">home</i>
+              </IconButton>
             </Toolbar>
           </AppBar>
           <Grid container justify='center'>
             <Grid item xs={10}>
               <main className={classes.content}>
                 <Grid container justify='center'>
-                  <Grid item xs={this.props.width === 'sm' ? 10 : 8}>
+                  <Grid item xs={this.contentSpacing(this.props)}>
                     { this.ContentRouter() }
                   </Grid>
                   <Hidden smDown>

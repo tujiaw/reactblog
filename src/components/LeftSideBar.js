@@ -34,7 +34,7 @@ class LeftSideBar extends React.Component {
     const { classes } = this.props;
 
     return (
-      <List className={classes.root} subheader={<ListSubheader>Nested List Items</ListSubheader>}>
+      <List className={classes.root} subheader={<ListSubheader>3inns.cn</ListSubheader>}>
         <ListItem button>
           <ListItemIcon>
             <SendIcon />

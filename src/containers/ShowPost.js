@@ -6,8 +6,9 @@ import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Chip from 'material-ui/Chip';
 import Typography from 'material-ui/Typography';
-import config from '../common/config'
-import { Link } from 'react-router-dom'
+import config from '../common/config';
+import PostStepper from './PostStepper';
+import { Link } from 'react-router-dom';
 
 class ShowPost extends React.Component {
     state = {
@@ -18,16 +19,17 @@ class ShowPost extends React.Component {
         const { match } = this.props;
         fetch.getPost(match.params.id).then((data) => {
             this.setState({ postData: data })
+            console.log(data);
         })
     }
 
     render() {
         const { match, classes } = this.props;
-        const { post } = this.state.postData;
+        const { post, nextPost, prevPost } = this.state.postData;
         console.log('match:' + JSON.stringify(match));
         return post 
         ? (
-            <div>
+            <div className={classes.root}>
                 <Card className={classes.card}>
                 <CardContent>
                     <Typography type="body1" className={classes.title}>
@@ -38,13 +40,13 @@ class ShowPost extends React.Component {
                     </Typography>
                     <div className={classes.chipGroup}>
                     { post.tags && post.tags.map((tag, index) => {
-                        return <Chip key={index} className={classes.chip} label={tag} />
+                        return tag.length ? <Chip key={index} className={classes.chip} label={tag} /> : null
                     })}
                     </div>
                     <div className="markdown-body" dangerouslySetInnerHTML={{ __html: post.content }}></div>
                 </CardContent>
                 <CardActions>
-                    <Button dense>阅读全文 »</Button>
+                    <PostStepper history={this.props.history} nextPost={nextPost} prevPost={prevPost} />
                 </CardActions>
                 </Card>
             </div>
@@ -54,6 +56,9 @@ class ShowPost extends React.Component {
 }
 
 const styles = theme => ({
+    root: {
+        marginTop: 20
+    },
     title: {
       marginBottom: 6,
       fontSize: 14,

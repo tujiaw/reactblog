@@ -103,7 +103,7 @@ class SearchBar extends React.Component {
         }}
       />
       <button className={classes.clearButton} onClick={this.handleClick}>
-        <i className="material-icons">{this.state.iconName}</i>
+        <i className="material-icons grey">{this.state.iconName}</i>
       </button>
     </div>
     )
