@@ -17,15 +17,20 @@ class ShowPost extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const { match } = nextProps;
-        fetch.getPost(match.params.id).then((data) => {
-            this.setState({ postData: data })
-            console.log(data);
-        })
+        this.fetchPost(match.params.id);
     }
     
     componentDidMount() {
         const { match } = this.props;
-        fetch.getPost(match.params.id).then((data) => {
+        this.fetchPost(match.params.id);
+    }
+
+    fetchPost(id) {
+        const { postData } = this.state;
+        if (postData.post && postData.post._id === id) {
+            return;
+        }
+        fetch.getPost(id).then((data) => {
             this.setState({ postData: data })
             console.log(data);
         })
