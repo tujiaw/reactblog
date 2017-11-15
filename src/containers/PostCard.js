@@ -7,6 +7,7 @@ import Chip from 'material-ui/Chip';
 import Typography from 'material-ui/Typography';
 import config from '../common/config'
 import { Link } from 'react-router-dom'
+import objectId from '../common/objectId'
 
 function PostCard(props) {
   const { classes, post } = props;
@@ -16,7 +17,7 @@ function PostCard(props) {
       <Card className={classes.card}>
         <CardContent>
           <Typography type="body1" className={classes.title}>
-          2017-11-04 10:42 阅读({ post.pv })
+          { objectId.toDatetime(post._id) } 阅读({ post.pv })
           </Typography>
           <Typography type="headline" component="h2">
             <Link to={'/post/' + post._id}>{ post.title }</Link>

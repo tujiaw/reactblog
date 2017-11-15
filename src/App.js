@@ -26,11 +26,20 @@ class App extends React.Component {
     postsData: {},
   };
 
+  listener = () => {
+    window.scrollTo(0, 0)
+  }
+
   componentDidMount() {
+    window.addEventListener('hashchange', this.listener, false)
     fetch.getPosts().then((data) => {
-      console.log(data)
+      console.log('App:' + JSON.stringify(data.posts[0]))
       this.setState({ postsData: data })
     })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('hashchange', this.listener, false)
   }
 
   HomePage = () => {

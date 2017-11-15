@@ -54,7 +54,7 @@ class PostStepper extends React.Component {
           backButton={
             <Button dense onClick={this.handleBack} disabled={!!!prevPost}>
               {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-              { prevPost ? prevPost.title : '这是第一篇了'}
+              { prevPost ? prevPost.title : '前面已经没有了'}
             </Button>
           }
         />

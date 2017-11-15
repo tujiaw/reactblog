@@ -90,6 +90,7 @@ class SearchBar extends React.Component {
         onChange={this.handleChanged}
         onKeyPress={this.handleKeyPress}
         inputRef={this.refInput}
+        placeholder='Search...'
         InputProps={{
           disableUnderline: true,
           classes: {
