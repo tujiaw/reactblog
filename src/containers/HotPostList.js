@@ -4,21 +4,26 @@ import { withStyles } from 'material-ui/styles';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Card, { CardContent } from 'material-ui/Card';
+import history from '../common/history'
 
 const styles = theme => ({
   root: {
     background: theme.palette.background.paper,
   },
-  nested: {
-    paddingLeft: theme.spacing.unit * 4,
+  listItem: {
+    padding: 8,
+    margin: 0,
   },
+  listItemText: {
+    padding: 0,
+    margin: 0,
+  }
+  
 });
 
 class HotPostList extends React.Component {
-  state = { open: true };
-
-  handleClick = () => {
-    this.setState({ open: !this.state.open });
+  handleClick = (id) => {
+    history.push('/post/' + id);
   };
 
   render() {
@@ -29,7 +34,9 @@ class HotPostList extends React.Component {
         <CardContent>
           <List dense={true} subheader={<ListSubheader>热门文章</ListSubheader>}>
             {hotPosts && hotPosts.map((post, index) => {
-              return <ListItem key={index} button><ListItemText primary={ post.title } /></ListItem>
+              return <ListItem className={classes.listItem} key={index} button onClick={this.handleClick.bind(this, post._id)}>
+                <ListItemText className={classes.listItemText} primary={ post.title } disableTypography={true}/>
+              </ListItem>
             })}
           </List>
         </CardContent>

@@ -12,9 +12,11 @@ class Pagination extends React.Component {
       const { pageNumbers, page, lastPage, prevPage, nextPage, morePage } = this.props.data
       return (
         <div className={classes.root}>
-          <IconButton className={classes.button} disabled={page===1} onClick={()=>this.onClick(prevPage)}>
-            <i className="material-icons grey">keyboard_arrow_left</i>
-          </IconButton>
+          { page && prevPage && 
+            <IconButton className={classes.button} disabled={page===1} onClick={()=>this.onClick(prevPage)}>
+              <i className="material-icons grey">keyboard_arrow_left</i>
+            </IconButton>
+          }
           { pageNumbers && pageNumbers.map((number, index) => {
             if (number === 0) {
               return <Button key={index} className={classes.button} onClick={()=>this.onClick(morePage)}>...</Button>
@@ -26,9 +28,11 @@ class Pagination extends React.Component {
               }
             }
           })}
-          <IconButton className={classes.button} disabled={page===lastPage} onClick={()=>this.onClick(nextPage)}>
-            <i className="material-icons grey">keyboard_arrow_right</i>
-          </IconButton>
+          { page && lastPage && nextPage && 
+            <IconButton className={classes.button} disabled={page===lastPage} onClick={()=>this.onClick(nextPage)}>
+              <i className="material-icons grey">keyboard_arrow_right</i>
+            </IconButton>
+          }
         </div>
       )
     }

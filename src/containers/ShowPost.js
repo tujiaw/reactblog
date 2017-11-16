@@ -58,6 +58,9 @@ class ShowPost extends React.Component {
                         })}
                         </div>
                         <div className="markdown-body" dangerouslySetInnerHTML={{ __html: post.content }}></div>
+                        <footer className={classes.reference}>
+                            <strong>（转载本站文章请注明作者和出处：<a href="http://3inns.cn">三家店 - 3inns.cn</a></strong>
+                        </footer>
                     </CardContent>
                 <CardActions>
                     <PostStepper history={this.props.history} nextPost={nextPost} prevPost={prevPost} />
@@ -86,6 +89,11 @@ const styles = theme => ({
     chip: {
         height: 25,
         marginRight: 6,
+    },
+    reference: {
+        marginTop: 15,
+        fontSize: 11,
+        color: '#cc0000'
     }
   });
 

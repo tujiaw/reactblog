@@ -8,7 +8,6 @@ export default function Loading() {
     )
 }
 
-
 const Styles = {
     root: {
         display: 'flex',

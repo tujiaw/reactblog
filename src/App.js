@@ -42,10 +42,10 @@ class App extends React.Component {
   }
 
   gotoPage = (page) => {
-    history.push('/?page=' + page);
     fetch.getPosts(page).then((data) => {
       console.log(data)
       this.setState({ postsData: data })
+      history.push('/?page=' + page);
     })
   }
 
