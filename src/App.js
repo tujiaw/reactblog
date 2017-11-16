@@ -6,7 +6,7 @@ import history from './common/history'
 import NotFound from './containers/404'
 import ShowPost from './containers/ShowPost'
 import { AppBar, Toolbar, Typography, 
-  IconButton, Grid, Hidden, Button, Drawer
+  IconButton, Grid, Hidden, Drawer
 } from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu'
 import CategoryList from './containers/CategoryList'
@@ -14,10 +14,8 @@ import HotPostList from './containers/HotPostList'
 import SearchBarCard from './containers/SearchBarCard';
 import PostCardList from './containers/PostCardList'
 import fetch from './common/fetch'
-import PostStepper from './containers/PostStepper'
 import compose from 'recompose/compose';
 import withWidth from 'material-ui/utils/withWidth';
-import { Link } from 'react-router-dom'
 import LeftSideBar from './components/LeftSideBar'
 import Pagination from './components/Pagination'
 

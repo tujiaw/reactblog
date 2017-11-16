@@ -3,10 +3,8 @@ import { withStyles } from 'material-ui/styles';
 import fetch from '../common/fetch'
 import PropTypes from 'prop-types';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
-import Button from 'material-ui/Button';
 import Chip from 'material-ui/Chip';
 import Typography from 'material-ui/Typography';
-import config from '../common/config';
 import PostStepper from './PostStepper';
 import { Link } from 'react-router-dom';
 import Loading from '../components/Loading'
@@ -40,7 +38,7 @@ class ShowPost extends React.Component {
     }
 
     render() {
-        const { match, classes } = this.props;
+        const { classes } = this.props;
         const { post, nextPost, prevPost } = this.state.postData;
         return post 
         ? (

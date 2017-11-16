@@ -5,7 +5,6 @@ import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Chip from 'material-ui/Chip';
 import Typography from 'material-ui/Typography';
-import config from '../common/config'
 import { Link } from 'react-router-dom'
 import objectId from '../common/objectId'
 import history from '../common/history'

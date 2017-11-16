@@ -13,7 +13,6 @@ import StarBorder from 'material-ui-icons/StarBorder';
 
 const styles = theme => ({
   root: {
-    width: '100%',
     maxWidth: 360,
     width: 230,
     background: theme.palette.background.paper,
