@@ -10,6 +10,7 @@ import config from '../common/config';
 import PostStepper from './PostStepper';
 import { Link } from 'react-router-dom';
 import Loading from '../components/Loading'
+import Back2top from '../components/Back2top'
 import objectId from '../common/objectId'
 
 class ShowPost extends React.Component {
@@ -44,21 +45,22 @@ class ShowPost extends React.Component {
         return post 
         ? (
             <div className={classes.root}>
+                <Back2top />
                 <Card className={classes.card}>
-                <CardContent>
-                    <Typography type="body1" className={classes.title}>
-                    { objectId.toDatetime(post._id) } 阅读({ post.pv })
-                    </Typography>
-                    <Typography type="headline" component="h2">
-                    <Link to={'/post/' + post._id}>{ post.title }</Link>
-                    </Typography>
-                    <div className={classes.chipGroup}>
-                    { post.tags && post.tags.map((tag, index) => {
-                        return tag.length ? <Chip key={index} className={classes.chip} label={tag} /> : null
-                    })}
-                    </div>
-                    <div className="markdown-body" dangerouslySetInnerHTML={{ __html: post.content }}></div>
-                </CardContent>
+                    <CardContent>
+                        <Typography type="body1" className={classes.title}>
+                        { objectId.toDatetime(post._id) } 阅读({ post.pv })
+                        </Typography>
+                        <Typography type="headline" component="h2">
+                        <Link to={'/post/' + post._id}>{ post.title }</Link>
+                        </Typography>
+                        <div className={classes.chipGroup}>
+                        { post.tags && post.tags.map((tag, index) => {
+                            return tag.length ? <Chip key={index} className={classes.chip} label={tag} /> : null
+                        })}
+                        </div>
+                        <div className="markdown-body" dangerouslySetInnerHTML={{ __html: post.content }}></div>
+                    </CardContent>
                 <CardActions>
                     <PostStepper history={this.props.history} nextPost={nextPost} prevPost={prevPost} />
                 </CardActions>
