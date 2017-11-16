@@ -19,6 +19,7 @@ import compose from 'recompose/compose';
 import withWidth from 'material-ui/utils/withWidth';
 import { Link } from 'react-router-dom'
 import LeftSideBar from './components/LeftSideBar'
+import Pagination from './components/Pagination'
 
 class App extends React.Component {
   state = {
@@ -33,7 +34,7 @@ class App extends React.Component {
   componentDidMount() {
     window.addEventListener('hashchange', this.listener, false)
     fetch.getPosts().then((data) => {
-      console.log('App:' + JSON.stringify(data.posts[0]))
+      console.log(data)
       this.setState({ postsData: data })
     })
   }
@@ -42,10 +43,19 @@ class App extends React.Component {
     window.removeEventListener('hashchange', this.listener, false)
   }
 
+  gotoPage = (page) => {
+    history.push('/?page=' + page);
+    fetch.getPosts(page).then((data) => {
+      console.log(data)
+      this.setState({ postsData: data })
+    })
+  }
+
   HomePage = () => {
     return (
       <div>
         <PostCardList posts={this.state.postsData.posts} />
+        <Pagination data={this.state.postsData} gotoPage={this.gotoPage}/>
       </div>
     )
   }
@@ -58,7 +68,7 @@ class App extends React.Component {
           <Route path="/post/:id" component={ShowPost} />
           <Route component={NotFound} />
         </Switch>
-    </Router>
+      </Router>
     )
   }
 

@@ -2,10 +2,13 @@ import axios from 'axios'
 import config from './config'
 
 const fetch = {
-    getPosts: () => {
+    getPosts: (page) => {
         return new Promise((resolve, reject) => {
-            axios.get(config.API_PREFIX + '/list').then((res) => {
-                resolve(res.data);
+            page = page ? ('/?page=' + page) : '';
+            axios.get(config.API_PREFIX + '/list' + page).then((res) => {
+                if (res && res.data) {
+                    resolve(res.data);
+                }
             }).catch((error) => {
                 console.log('getPosts error:' + error);
                 reject(error);

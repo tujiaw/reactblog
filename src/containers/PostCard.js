@@ -8,6 +8,7 @@ import Typography from 'material-ui/Typography';
 import config from '../common/config'
 import { Link } from 'react-router-dom'
 import objectId from '../common/objectId'
+import history from '../common/history'
 
 function PostCard(props) {
   const { classes, post } = props;
@@ -32,7 +33,7 @@ function PostCard(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button dense>阅读全文 »</Button>
+          <Button dense onClick={() => { history.push('/post/' + post._id) }}>阅读全文 »</Button>
         </CardActions>
       </Card>
     </div>
