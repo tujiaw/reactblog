@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import List, { ListItem, ListItemText } from 'material-ui/List';
+import { Divider } from 'material-ui'
 import fetch from '../common/fetch'
 import Loading from '../components/Loading'
+import history from '../common/history'
 
 const styles = theme => ({
   root: {
@@ -16,6 +18,10 @@ const styles = theme => ({
   listSection: {
     background: 'inherit',
   },
+  divider: {
+    marginLeft: 10,
+    marginRight: 10,
+  }
 });
 
 class ShowTagPost extends React.Component {
@@ -46,6 +52,10 @@ class ShowTagPost extends React.Component {
       })
   }
 
+  handleClick = (id) => {
+    history.push('/post/' + id);
+  }
+
   render() {
     const { classes } = this.props;
     const { data } = this.state;
@@ -55,9 +65,12 @@ class ShowTagPost extends React.Component {
         ? <List dense={true} className={classes.root} subheader={<ListSubheader>{data.tagname}</ListSubheader>}>
           {data.archives.map((archive, i) => (
             <div key={'archives' + i} className={classes.listSection}>
+              <Divider className={classes.divider}/>
               <ListSubheader>{archive.yearMonth}</ListSubheader>
               {archive.titles && archive.titles.map((title, j) => (
-                <ListItem button key={'archives' + i + 'title' + j}>
+                <ListItem button key={'archives' + i + 'title' + j} 
+                  onClick={this.handleClick.bind(this, title._id)}
+                >
                   <ListItemText primary={title.title} />
                 </ListItem>
               ))}
