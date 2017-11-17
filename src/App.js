@@ -9,7 +9,7 @@ import { AppBar, Toolbar, Typography,
   IconButton, Grid, Hidden, Drawer
 } from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu'
-import CategoryList from './containers/CategoryList'
+import TagList from './containers/TagList'
 import HotPostList from './containers/HotPostList'
 import SearchBarCard from './containers/SearchBarCard';
 import PostCardList from './containers/PostCardList'
@@ -18,6 +18,7 @@ import compose from 'recompose/compose';
 import withWidth from 'material-ui/utils/withWidth';
 import LeftSideBar from './components/LeftSideBar'
 import Pagination from './components/Pagination'
+import ShowTagPost from './containers/ShowTagPost'
 
 class App extends React.Component {
   state = {
@@ -64,6 +65,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={this.HomePage} />
           <Route path="/post/:id" component={ShowPost} />
+          <Route path="/tags/:tagname" component={ShowTagPost} />
           <Route component={NotFound} />
         </Switch>
       </Router>
@@ -78,7 +80,7 @@ class App extends React.Component {
         <br />
         <HotPostList hotPosts={this.state.postsData.hotPosts} />
         <br />
-        <CategoryList tagsCount={this.state.postsData.tagsCount} />
+        <TagList tagsCount={this.state.postsData.tagsCount} />
       </Grid> 
     )
   }

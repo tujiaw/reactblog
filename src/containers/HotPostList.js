@@ -34,8 +34,8 @@ class HotPostList extends React.Component {
         <CardContent>
           <List dense={true} subheader={<ListSubheader>热门文章</ListSubheader>}>
             {hotPosts && hotPosts.map((post, index) => {
-              return <ListItem className={classes.listItem} key={index} button onClick={this.handleClick.bind(this, post._id)}>
-                <ListItemText className={classes.listItemText} primary={ post.title } disableTypography={true}/>
+              return <ListItem key={index} onClick={this.handleClick.bind(this, post._id)} button>
+                <ListItemText primary={ post.title } />
               </ListItem>
             })}
           </List>
