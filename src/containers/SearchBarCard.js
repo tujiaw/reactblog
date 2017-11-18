@@ -31,7 +31,7 @@ class SearchBarCard extends React.Component {
         <CardContent className={classes.cardContent}>
           <SearchBar
             onChange={() => console.log('onChange')}
-            onRequestSearch={() => console.log('onRequestSearch')}
+            onRequestSearch={this.props.handleSearch}
             style={{
               margin: '0 auto',
             }}

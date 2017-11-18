@@ -25,6 +25,9 @@ const fetch = {
     },
     getTagPost: (tagname) => {
         return getData(config.API_PREFIX + '/tags/' + tagname);
+    },
+    getSearch: (keyword) => {
+        return getData(config.API_PREFIX + '/search?keyword=' + keyword);
     }
 }
 

@@ -19,10 +19,14 @@ import withWidth from 'material-ui/utils/withWidth';
 import LeftSideBar from './components/LeftSideBar'
 import Pagination from './components/Pagination'
 import ShowTagPost from './containers/ShowTagPost'
+import ShowSearchPost from './containers/ShowSearchPost'
+import NotifyBar from './components/NotifyBar'
 
 class App extends React.Component {
   state = {
     left: false,
+    notifyBarOpen: false,
+    notifyBarText: '',
     postsData: {},
   };
 
@@ -66,17 +70,33 @@ class App extends React.Component {
           <Route exact path="/" component={this.HomePage} />
           <Route path="/post/:id" component={ShowPost} />
           <Route path="/tags/:tagname" component={ShowTagPost} />
+          <Route path="/search/:keyword" component={ShowSearchPost} />
           <Route component={NotFound} />
         </Switch>
       </Router>
     )
   }
 
+  notifyBarRequestClose = () => {
+    this.setState({ notifyBarOpen: false })
+  }
+
+  handleSearch = (keyword) => {
+    console.log('app.js keyword:' + keyword)
+    if (keyword.length === 0) {
+      history.push('/')
+    } else if (keyword.length === 1) {
+      this.setState({ notifyBarOpen: true, notifyBarText: '请至少输入两个字符！！！' })
+    } else if (keyword.length > 1) {
+      history.push('/search/' + encodeURIComponent(keyword))
+    } 
+  }
+
   RightSideBar = (props) => {
     const { classes } = this.props;
     return (
       <Grid item xs={4} className={classes.side}>
-        <SearchBarCard />
+        <SearchBarCard handleSearch={this.handleSearch} />
         <br />
         <HotPostList hotPosts={this.state.postsData.hotPosts} />
         <br />
@@ -108,6 +128,10 @@ class App extends React.Component {
 
     return (
       <div className={classes.root}>
+        <NotifyBar open={this.state.notifyBarOpen} 
+          text={this.state.notifyBarText}
+          notifyBarRequestClose={this.notifyBarRequestClose}
+        />
         <Drawer open={this.state.left} onRequestClose={this.toggleDrawer('left', false)}>
           <div
             tabIndex={0}

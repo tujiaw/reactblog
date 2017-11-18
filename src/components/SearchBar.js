@@ -62,7 +62,10 @@ class SearchBar extends React.Component {
 
   handleKeyPress = (event) => {
     if (event.key === 'Enter' || event.key === 'enter') {
-      console.log('dddddddddfdfdd');
+      if (this.props.onRequestSearch) {
+        console.log(event.target.value)
+        this.props.onRequestSearch(event.target.value)
+      }
     }
   }
 
