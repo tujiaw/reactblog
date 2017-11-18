@@ -3,8 +3,11 @@ body {
   padding: 0;
   font-family: sans-serif;
   /* background: rgb(236, 239, 241); */
-  background-image: url(/tiny_grid.png);
-  background-repeat: repeat;
+
+  background: #b3b3b0;
+  background: -webkit-linear-gradient(top, #b3b3b0 0%, #e3e2dd 500px);
+  background: linear-gradient(top, #b3b3b0 0%,#e3e2dd 500px);
+  background-repeat: no-repeat;
 }
 
 a {

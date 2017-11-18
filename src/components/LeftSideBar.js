@@ -25,8 +25,8 @@ const styles = theme => ({
 class LeftSideBar extends React.Component {
   state = { open: true };
 
-  handleClick = () => {
-    this.setState({ open: !this.state.open });
+  handleClick = (url) => {
+    window.open(url)
   };
 
   render() {
@@ -34,32 +34,40 @@ class LeftSideBar extends React.Component {
 
     return (
       <List className={classes.root} subheader={<ListSubheader>3inns.cn</ListSubheader>}>
-        <ListItem button>
-          <ListItemIcon>
-            <SendIcon />
-          </ListItemIcon>
-          <ListItemText inset primary="Sent mail" />
+        <ListItem button onClick={this.handleClick.bind(this, 'http://3inns.cn')}>
+          <ListItemIcon><i className="material-icons">home</i></ListItemIcon>
+          <ListItemText inset primary="主页" />
         </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <DraftsIcon />
-          </ListItemIcon>
-          <ListItemText inset primary="Drafts" />
+        <ListItem button onClick={this.handleClick.bind(this, 'http://3inns.cn/about')}>
+          <ListItemIcon><i className="material-icons">account_box</i></ListItemIcon>
+          <ListItemText inset primary="关于" />
         </ListItem>
-        <ListItem button onClick={this.handleClick}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText inset primary="Inbox" />
-          {this.state.open ? <ExpandLess /> : <ExpandMore />}
+        <ListItem button onClick={this.handleClick.bind(this, 'http://3inns.cn/archives')}>
+          <ListItemIcon><i className="material-icons">archive</i></ListItemIcon>
+          <ListItemText inset primary="归档" />
+        </ListItem>
+        <ListItem button onClick={this.handleClick.bind(this, 'http://3inns.cn/search')}>
+          <ListItemIcon><i className="material-icons">search</i></ListItemIcon>
+          <ListItemText inset primary="搜索" />
+        </ListItem>
+        <ListItem button onClick={this.handleClick.bind(this, 'http://3inns.cn/program')}>
+          <ListItemIcon><i className="material-icons">get_app</i></ListItemIcon>
+          <ListItemText inset primary="小程序" />
+        </ListItem>
+        <ListItem button onClick={this.handleClick.bind(this, 'http://3inns.cn/post/59edecd82be91645212c9981')}>
+          <ListItemIcon><i className="material-icons">favorite</i></ListItemIcon>
+          <ListItemText inset primary="书签" />
         </ListItem>
         <Collapse component="li" in={this.state.open} transitionDuration="auto" unmountOnExit>
           <List disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemIcon>
-                <StarBorder />
-              </ListItemIcon>
-              <ListItemText inset primary="Starred" />
+            <ListItem button className={classes.nested} onClick={this.handleClick.bind(this, 'http://3inns.cn/mdviewer')}>
+              <ListItemText primary="Markdown预览" />
+            </ListItem>
+            <ListItem button className={classes.nested} onClick={this.handleClick.bind(this, 'http://3inns.cn/upload.html')}>
+              <ListItemText  primary="上传图片" />
+            </ListItem>
+            <ListItem button className={classes.nested} onClick={this.handleClick.bind(this, 'http://3inns.cn/react-wchathot')}>
+              <ListItemText  primary="微信文章精选" />
             </ListItem>
           </List>
         </Collapse>

@@ -21,6 +21,7 @@ import Pagination from './components/Pagination'
 import ShowTagPost from './containers/ShowTagPost'
 import ShowSearchPost from './containers/ShowSearchPost'
 import NotifyBar from './components/NotifyBar'
+import Back2top from './components/Back2top'
 import Footer from './containers/Footer'
 
 class App extends React.Component {
@@ -133,6 +134,7 @@ class App extends React.Component {
           text={this.state.notifyBarText}
           notifyBarRequestClose={this.notifyBarRequestClose}
         />
+        <Back2top />
         <Drawer open={this.state.left} onRequestClose={this.toggleDrawer('left', false)}>
           <div
             tabIndex={0}

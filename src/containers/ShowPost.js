@@ -8,7 +8,6 @@ import Typography from 'material-ui/Typography';
 import PostStepper from './PostStepper';
 import { Link } from 'react-router-dom';
 import Loading from '../components/Loading'
-import Back2top from '../components/Back2top'
 import objectId from '../common/objectId'
 
 class ShowPost extends React.Component {
@@ -43,7 +42,6 @@ class ShowPost extends React.Component {
         return post 
         ? (
             <div className={classes.root}>
-                <Back2top />
                 <Card className={classes.card}>
                     <CardContent>
                         <Typography type="body1" className={classes.title}>

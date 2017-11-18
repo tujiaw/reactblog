@@ -11,7 +11,7 @@ class Back2top extends React.Component {
     if (scrollTop === 0) {
       scrollTop = document.documentElement.scrollTop
     }
-    this.setState({ visible: scrollTop > 100 });
+    this.setState({ visible: scrollTop > 300 });
   }
 
   componentDidMount() {

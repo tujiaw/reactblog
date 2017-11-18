@@ -14,7 +14,7 @@ function PostCard(props) {
 
   return (
     <div>
-      <Card className={classes.card}>
+      <Card>
         <CardContent>
           <Typography type="body1" className={classes.title}>
           { objectId.toDatetime(post._id) } 阅读({ post.pv })
