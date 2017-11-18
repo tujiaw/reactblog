@@ -21,6 +21,7 @@ import Pagination from './components/Pagination'
 import ShowTagPost from './containers/ShowTagPost'
 import ShowSearchPost from './containers/ShowSearchPost'
 import NotifyBar from './components/NotifyBar'
+import Footer from './containers/Footer'
 
 class App extends React.Component {
   state = {
@@ -173,6 +174,7 @@ class App extends React.Component {
               </main>
             </Grid>
           </Grid>
+        { Object.keys(this.state.postsData).length && <Footer />}
       </div>
     );
   }
@@ -202,12 +204,11 @@ const styles = theme => ({
   content: {
     // backgroundColor: theme.palette.background.default,
     width: '100%',
-    padding: theme.spacing.unit * 3,
-    height: 'calc(100% - 40px)',
-    marginTop: 40,
+    height: 'calc(100% - 60px)',
+    marginTop: 60,
     [theme.breakpoints.up('md')]: {
-      height: 'calc(100% - 40px)',
-      marginTop: 40,
+      height: 'calc(100% - 60px)',
+      marginTop: 60,
     },
   },
   side: {

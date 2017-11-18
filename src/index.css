@@ -2,7 +2,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background: rgb(236, 239, 241);
+  /* background: rgb(236, 239, 241); */
+  background-image: url(/tiny_grid.png);
+  background-repeat: repeat;
 }
 
 a {
