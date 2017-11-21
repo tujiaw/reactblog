@@ -7,6 +7,7 @@ function getData(url) {
         axios.get(url).then((res) => {
             if (res && res.data) {
                 resolve(res.data);
+                window.scrollTo(0, 0)
             }
         }).catch((error) => {
             console.log('get data error:' + error);

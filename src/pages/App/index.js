@@ -44,9 +44,6 @@ class App extends React.Component {
 
   listener = () => {
     console.log(history.location)
-    setTimeout(() => {
-      window.scrollTo(0, 0)
-    }, 200);
 
     const { location } = history
     if (location.pathname === '/') {
