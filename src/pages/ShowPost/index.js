@@ -1,14 +1,15 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import fetch from '../common/fetch'
 import PropTypes from 'prop-types';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
 import Typography from 'material-ui/Typography';
-import PostStepper from './PostStepper';
 import { Link } from 'react-router-dom';
-import Loading from '../components/Loading'
-import objectId from '../common/objectId'
+
+import fetch from '../../common/fetch'
+import objectId from '../../common/objectId'
+import Loading from '../../components/Loading'
+import PostStepper from './PostStepper';
 
 class ShowPost extends React.Component {
     state = {

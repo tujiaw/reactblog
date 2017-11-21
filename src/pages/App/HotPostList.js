@@ -4,7 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Card, { CardContent } from 'material-ui/Card';
-import history from '../common/history'
+import history from '../../common/history'
 
 const styles = theme => ({
   root: {

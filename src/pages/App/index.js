@@ -2,34 +2,41 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import { Router, Route, Switch } from 'react-router-dom'
-import history from './common/history'
-import NotFound from './containers/404'
-import ShowPost from './containers/ShowPost'
 import { AppBar, Toolbar, Typography, 
   IconButton, Grid, Hidden, Drawer
 } from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu'
-import TagList from './containers/TagList'
-import HotPostList from './containers/HotPostList'
-import SearchBarCard from './containers/SearchBarCard';
-import PostCardList from './containers/PostCardList'
-import fetch from './common/fetch'
 import compose from 'recompose/compose';
 import withWidth from 'material-ui/utils/withWidth';
-import LeftSideBar from './components/LeftSideBar'
-import Pagination from './components/Pagination'
-import ShowTagPost from './containers/ShowTagPost'
-import ShowSearchPost from './containers/ShowSearchPost'
-import NotifyBar from './components/NotifyBar'
-import Back2top from './components/Back2top'
-import Footer from './containers/Footer'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import history from '../../common/history'
+import fetch from '../../common/fetch'
+
+import LeftSideBar from '../../components/LeftSideBar'
+import Pagination from '../../components/Pagination'
+import NotifyBar from '../../components/NotifyBar'
+import Back2top from '../../components/Back2top'
+
+import TagList from './TagList'
+import HotPostList from './HotPostList'
+import SearchBarCard from './SearchBarCard';
+import PostCardList from './PostCardList'
+
+import Footer from './Footer'
+import NotFound from '../404'
+import ShowPost from '../ShowPost'
+import ShowTagPost from '../ShowTagPost'
+import ShowSearchPost from '../ShowSearchPost'
+
+import { getHomeData } from '../../actions/home'
 
 class App extends React.Component {
   state = {
     left: false,
     notifyBarOpen: false,
     notifyBarText: '',
-    postsData: {},
   };
 
   listener = () => {
@@ -38,10 +45,11 @@ class App extends React.Component {
 
   componentDidMount() {
     window.addEventListener('hashchange', this.listener, false)
-    fetch.getPosts().then((data) => {
-      console.log(data)
-      this.setState({ postsData: data })
-    })
+    // fetch.getPosts().then((data) => {
+    //   console.log(data)
+    //   this.setState({ postsData: data })
+    // })
+    this.props.getHomeData()
   }
 
   componentWillUnmount() {
@@ -49,18 +57,19 @@ class App extends React.Component {
   }
 
   gotoPage = (page) => {
-    fetch.getPosts(page).then((data) => {
-      console.log(data)
-      this.setState({ postsData: data })
-      history.push('/?page=' + page);
-    })
+    this.props.getHomeData(page)
+    // fetch.getPosts(page).then((data) => {
+    //   console.log(data)
+    //   this.setState({ postsData: data })
+    //   history.push('/?page=' + page);
+    // })
   }
 
   HomePage = () => {
     return (
       <div>
-        <PostCardList posts={this.state.postsData.posts} />
-        <Pagination data={this.state.postsData} gotoPage={this.gotoPage}/>
+        <PostCardList posts={this.props.postsData.posts} />
+        <Pagination data={this.props.postsData} gotoPage={this.gotoPage}/>
       </div>
     )
   }
@@ -100,9 +109,15 @@ class App extends React.Component {
       <Grid item xs={4} className={classes.side}>
         <SearchBarCard handleSearch={this.handleSearch} />
         <br />
-        <HotPostList hotPosts={this.state.postsData.hotPosts} />
+        { 
+          this.props.postsData.hotPosts && 
+          <HotPostList hotPosts={this.props.postsData.hotPosts} />
+        }
         <br />
-        <TagList tagsCount={this.state.postsData.tagsCount} />
+        {
+          this.props.postsData.tagsCount &&
+          <TagList tagsCount={this.props.postsData.tagsCount} />
+        }
       </Grid> 
     )
   }
@@ -176,7 +191,7 @@ class App extends React.Component {
               </main>
             </Grid>
           </Grid>
-        { Object.keys(this.state.postsData).length && <Footer />}
+        { Object.keys(this.props.postsData).length && <Footer />}
       </div>
     );
   }
@@ -224,4 +239,20 @@ App.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(withStyles(styles, { withTheme: true }), withWidth())(App);
+function mapStateToProps(state) {
+  return {
+    postsData: state.homeData
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getHomeData: bindActionCreators(getHomeData, dispatch)
+  }
+}
+
+export default compose(
+  withStyles(styles, { withTheme: true }), 
+  withWidth(), 
+  connect(mapStateToProps, mapDispatchToProps)
+)(App);

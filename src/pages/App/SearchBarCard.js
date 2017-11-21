@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
-import SearchBar from '../components/SearchBar'
+import SearchBar from '../../components/SearchBar'
 
 const styles = theme => ({
   root: {

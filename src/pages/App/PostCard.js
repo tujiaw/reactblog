@@ -6,8 +6,8 @@ import Button from 'material-ui/Button';
 import Chip from 'material-ui/Chip';
 import Typography from 'material-ui/Typography';
 import { Link } from 'react-router-dom'
-import objectId from '../common/objectId'
-import history from '../common/history'
+import objectId from '../../common/objectId'
+import history from '../../common/history'
 
 function PostCard(props) {
   const { classes, post } = props;

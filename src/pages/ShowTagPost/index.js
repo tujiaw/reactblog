@@ -4,9 +4,10 @@ import { withStyles } from 'material-ui/styles';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import { Divider } from 'material-ui'
-import fetch from '../common/fetch'
-import Loading from '../components/Loading'
-import history from '../common/history'
+
+import fetch from '../../common/fetch'
+import Loading from '../../components/Loading'
+import history from '../../common/history'
 
 const styles = theme => ({
   root: {
@@ -24,7 +25,7 @@ const styles = theme => ({
   }
 });
 
-class ShowSearchPost extends React.Component {
+class ShowTagPost extends React.Component {
   state = {
     tagname: '',
     data: {}
@@ -32,16 +33,12 @@ class ShowSearchPost extends React.Component {
 
   componentWillReceiveProps(nextProps) {
       const { match } = nextProps;
-      console.log('1111111111111111');
-      console.log(match);
-      this.fetchPost(match.params.keyword);
+      this.fetchPost(match.params.tagname);
   }
 
   componentDidMount() {
       const { match } = this.props;
-      console.log('222222222222222')
-      console.log(match)
-      this.fetchPost(match.params.keyword);
+      this.fetchPost(match.params.tagname);
   }
 
   fetchPost(tagname) {
@@ -49,7 +46,7 @@ class ShowSearchPost extends React.Component {
           return
       }
       this.setState({ tagname: tagname })
-      fetch.getSearch(tagname).then((data) => {
+      fetch.getTagPost(tagname).then((data) => {
           this.setState({ data: data })
           console.log(data)
       })
@@ -87,8 +84,8 @@ class ShowSearchPost extends React.Component {
   }
 }
 
-ShowSearchPost.propTypes = {
+ShowTagPost.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ShowSearchPost);
+export default withStyles(styles)(ShowTagPost);
