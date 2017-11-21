@@ -5,70 +5,46 @@ import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
 import Typography from 'material-ui/Typography';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import compose from 'recompose/compose'
 
 import fetch from '../../common/fetch'
 import objectId from '../../common/objectId'
 import Loading from '../../components/Loading'
 import PostStepper from './PostStepper';
 
-class ShowPost extends React.Component {
-    state = {
-        postData: {}
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const { match } = nextProps;
-        this.fetchPost(match.params.id);
-    }
-    
-    componentDidMount() {
-        const { match } = this.props;
-        this.fetchPost(match.params.id);
-    }
-
-    fetchPost(id) {
-        const { postData } = this.state;
-        if (postData.post && postData.post._id === id) {
-            return;
-        }
-        fetch.getPost(id).then((data) => {
-            this.setState({ postData: data })
-            console.log(data);
-        })
-    }
-
-    render() {
-        const { classes } = this.props;
-        const { post, nextPost, prevPost } = this.state.postData;
-        return post 
-        ? (
-            <div className={classes.root}>
-                <Card className={classes.card}>
-                    <CardContent>
-                        <Typography type="body1" className={classes.title}>
-                        { objectId.toDatetime(post._id) } 阅读({ post.pv })
-                        </Typography>
-                        <Typography type="headline" component="h2">
-                        <Link to={'/post/' + post._id}>{ post.title }</Link>
-                        </Typography>
-                        <div className={classes.chipGroup}>
-                        { post.tags && post.tags.map((tag, index) => {
-                            return tag.length ? <Chip key={index} className={classes.chip} label={tag} /> : null
-                        })}
-                        </div>
-                        <div className="markdown-body" dangerouslySetInnerHTML={{ __html: post.content }}></div>
-                        <footer className={classes.reference}>
-                            <strong>（转载本站文章请注明作者和出处：<a href="http://3inns.cn">三家店 - 3inns.cn</a></strong>
-                        </footer>
-                    </CardContent>
-                <CardActions>
-                    <PostStepper history={this.props.history} nextPost={nextPost} prevPost={prevPost} />
-                </CardActions>
-                </Card>
-            </div>
-        )
-        : <Loading />;
-    }
+function ShowPost(props) {
+    const { classes } = props;
+    const { post, nextPost, prevPost } = props.postData;
+    return post 
+    ? (
+        <div className={classes.root}>
+            <Card className={classes.card}>
+                <CardContent>
+                    <Typography type="body1" className={classes.title}>
+                    { objectId.toDatetime(post._id) } 阅读({ post.pv })
+                    </Typography>
+                    <Typography type="headline" component="h2">
+                    <Link to={'/post/' + post._id}>{ post.title }</Link>
+                    </Typography>
+                    <div className={classes.chipGroup}>
+                    { post.tags && post.tags.map((tag, index) => {
+                        return tag.length ? <Chip key={index} className={classes.chip} label={tag} /> : null
+                    })}
+                    </div>
+                    <div className="markdown-body" dangerouslySetInnerHTML={{ __html: post.content }}></div>
+                    <footer className={classes.reference}>
+                        <strong>（转载本站文章请注明作者和出处：<a href="http://3inns.cn">三家店 - 3inns.cn</a></strong>
+                    </footer>
+                </CardContent>
+            <CardActions>
+                <PostStepper history={props.history} nextPost={nextPost} prevPost={prevPost} />
+            </CardActions>
+            </Card>
+        </div>
+    )
+    : <Loading />;
 }
 
 const styles = theme => ({
@@ -100,4 +76,18 @@ ShowPost.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ShowPost);
+function mapStateToProps(state) {
+    return {
+        postData: state.postData
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+    }
+}
+  
+export default compose(
+    withStyles(styles),
+    connect(mapStateToProps, mapDispatchToProps)
+)(ShowPost);

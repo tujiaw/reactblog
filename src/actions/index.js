@@ -1,6 +1,6 @@
 export default {
   getHomeData: 'GET_HOME_DATA',
-  openPost: 'OPEN_POST',
-  openTagPost: 'OPEN_TAG_POST',
-  openSearchPost: 'OPEN_SEARCH_POST',
+  getPostData: 'GET_POST_DATA',
+  getTagPostsData: 'GET_TAG_POSTS_DATA',
+  getSearchPostsData: 'GET_SEARCH_POSTS_DATA',
 }

@@ -9,13 +9,16 @@ function getData(url) {
                 resolve(res.data);
             }
         }).catch((error) => {
-            console.log('getPosts error:' + error);
+            console.log('get data error:' + error);
             reject(error);
         })
     })
 }
 
 const fetch = {
+    getUrl: (url) =>{
+        return getData(config.API_PREFIX + url);
+    },
     getPosts: (page) => {
         page = page ? ('/?page=' + page) : '';
         return getData(config.API_PREFIX + '/list' + page);

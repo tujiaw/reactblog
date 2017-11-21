@@ -31,6 +31,9 @@ import ShowTagPost from '../ShowTagPost'
 import ShowSearchPost from '../ShowSearchPost'
 
 import { getHomeData } from '../../actions/home'
+import { getPostData } from '../../actions/post'
+import { getTagPostsData } from '../../actions/tagPosts'
+import { getSearchPostsData } from '../../actions/searchPosts'
 
 class App extends React.Component {
   state = {
@@ -40,16 +43,26 @@ class App extends React.Component {
   };
 
   listener = () => {
-    window.scrollTo(0, 0)
+    console.log(history.location)
+    setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 200);
+
+    const { location } = history
+    if (location.pathname === '/') {
+      this.props.getHomeData(location.pathname + location.search)
+    } else if (location.pathname.startsWith('/post')) {
+      this.props.getPostData(location.pathname)
+    } else if (location.pathname.startsWith('/tags')) {
+      this.props.getTagPostsData(location.pathname)
+    } else if (location.pathname.startsWith('/search')) {
+      this.props.getSearchPostsData(location.pathname + location.search)
+    }
   }
 
   componentDidMount() {
     window.addEventListener('hashchange', this.listener, false)
-    // fetch.getPosts().then((data) => {
-    //   console.log(data)
-    //   this.setState({ postsData: data })
-    // })
-    this.props.getHomeData()
+    this.props.getHomeData('/')
   }
 
   componentWillUnmount() {
@@ -57,12 +70,7 @@ class App extends React.Component {
   }
 
   gotoPage = (page) => {
-    this.props.getHomeData(page)
-    // fetch.getPosts(page).then((data) => {
-    //   console.log(data)
-    //   this.setState({ postsData: data })
-    //   history.push('/?page=' + page);
-    // })
+    history.push(`/?page=${page}`)
   }
 
   HomePage = () => {
@@ -81,7 +89,7 @@ class App extends React.Component {
           <Route exact path="/" component={this.HomePage} />
           <Route path="/post/:id" component={ShowPost} />
           <Route path="/tags/:tagname" component={ShowTagPost} />
-          <Route path="/search/:keyword" component={ShowSearchPost} />
+          <Route path="/search" component={ShowSearchPost} />
           <Route component={NotFound} />
         </Switch>
       </Router>
@@ -99,7 +107,7 @@ class App extends React.Component {
     } else if (keyword.length === 1) {
       this.setState({ notifyBarOpen: true, notifyBarText: '请至少输入两个字符！！！' })
     } else if (keyword.length > 1) {
-      history.push('/search/' + encodeURIComponent(keyword))
+      history.push('/search?keyword=' + encodeURIComponent(keyword))
     } 
   }
 
@@ -247,7 +255,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getHomeData: bindActionCreators(getHomeData, dispatch)
+    getHomeData: bindActionCreators(getHomeData, dispatch),
+    getPostData: bindActionCreators(getPostData, dispatch),
+    getTagPostsData: bindActionCreators(getTagPostsData, dispatch),
+    getSearchPostsData: bindActionCreators(getSearchPostsData, dispatch),
   }
 }
 

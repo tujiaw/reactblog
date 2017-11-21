@@ -4,6 +4,9 @@ import { withStyles } from 'material-ui/styles';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import { Divider } from 'material-ui'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import compose from 'recompose/compose'
 
 import fetch from '../../common/fetch'
 import Loading from '../../components/Loading'
@@ -26,43 +29,12 @@ const styles = theme => ({
 });
 
 class ShowSearchPost extends React.Component {
-  state = {
-    tagname: '',
-    data: {}
-  }
-
-  componentWillReceiveProps(nextProps) {
-      const { match } = nextProps;
-      console.log('1111111111111111');
-      console.log(match);
-      this.fetchPost(match.params.keyword);
-  }
-
-  componentDidMount() {
-      const { match } = this.props;
-      console.log('222222222222222')
-      console.log(match)
-      this.fetchPost(match.params.keyword);
-  }
-
-  fetchPost(tagname) {
-      if (this.state.tagname === tagname) {
-          return
-      }
-      this.setState({ tagname: tagname })
-      fetch.getSearch(tagname).then((data) => {
-          this.setState({ data: data })
-          console.log(data)
-      })
-  }
-
   handleClick = (id) => {
     history.push('/post/' + id);
   }
 
   render() {
-    const { classes } = this.props;
-    const { data } = this.state;
+    const { classes, data } = this.props;
     return (
       <div className={classes.root}>
       { data.archives 
@@ -92,4 +64,19 @@ ShowSearchPost.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ShowSearchPost);
+function mapStateToProps(state) {
+  return {
+      data: state.searchPostsData
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+  }
+}
+
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+)(ShowSearchPost);
+
