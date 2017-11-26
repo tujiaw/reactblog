@@ -8,7 +8,7 @@ import history from '../../common/history'
 
 const styles = theme => ({
   root: {
-    background: theme.palette.background.paper,
+    // background: theme.palette.background.default,
   },
   listItem: {
     padding: 8,
@@ -32,7 +32,7 @@ class HotPostList extends React.Component {
     return (
       <Card className={classes.root}>
         <CardContent>
-          <List dense={true} subheader={<ListSubheader>热门文章</ListSubheader>}>
+          <List dense={true} subheader={<ListSubheader className={classes.subHeader}>热门文章</ListSubheader>}>
             {hotPosts && hotPosts.map((post, index) => {
               return <ListItem key={index} onClick={this.handleClick.bind(this, post._id)} button>
                 <ListItemText primary={ post.title } />

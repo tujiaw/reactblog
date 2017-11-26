@@ -8,7 +8,7 @@ import history from '../../common/history'
 
 const styles = theme => ({
   root: {
-    background: theme.palette.background.paper,
+    // background: theme.palette.background.default,
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4,

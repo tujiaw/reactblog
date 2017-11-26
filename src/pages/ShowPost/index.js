@@ -6,10 +6,8 @@ import Chip from 'material-ui/Chip';
 import Typography from 'material-ui/Typography';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import compose from 'recompose/compose'
 
-import fetch from '../../common/fetch'
 import objectId from '../../common/objectId'
 import Loading from '../../components/Loading'
 import PostStepper from './PostStepper';
@@ -22,11 +20,11 @@ function ShowPost(props) {
         <div className={classes.root}>
             <Card className={classes.card}>
                 <CardContent>
-                    <Typography type="body1" className={classes.title}>
+                    <Typography type="body1" className={classes.subTitle}>
                     { objectId.toDatetime(post._id) } 阅读({ post.pv })
                     </Typography>
                     <Typography type="headline" component="h2">
-                    <Link to={'/post/' + post._id}>{ post.title }</Link>
+                    <Link className={classes.title} to={'/post/' + post._id}>{ post.title }</Link>
                     </Typography>
                     <div className={classes.chipGroup}>
                     { post.tags && post.tags.map((tag, index) => {
@@ -49,13 +47,17 @@ function ShowPost(props) {
 
 const styles = theme => ({
     root: {
-        marginTop: 20
+        marginTop: 20,
+        background: theme.palette.common.darkWhite,
     },
     title: {
-      marginBottom: 6,
-      fontSize: 14,
-      color: theme.palette.text.secondary,
+        color: theme.palette.text.primary,
     },
+    subTitle: {
+        marginBottom: 6,
+        fontSize: 14,
+        color: theme.palette.text.secondary,
+      },
     chipGroup: {
         display: 'flex',
         marginTop: 6,

@@ -17,11 +17,11 @@ const styles = theme => ({
   textFieldInput: {
     borderRadius: 4,
     paddingRight: 30,
-    background: theme.palette.common.white,
-    border: '1px solid #ced4da',
+    border: '1px solid ' + theme.palette.input.bottomLine,
     fontSize: 16,
     padding: '10px 12px',
     width: 'calc(100% - 24px)',
+    color: theme.palette.input.inputText,
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     '&:focus': {
       borderColor: '#80bdff',
@@ -79,7 +79,7 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, theme } = this.props;
 
     return (
       <div className={classes.container}>
@@ -103,7 +103,7 @@ class SearchBar extends React.Component {
         }}
       />
       <button className={classes.clearButton} onClick={this.handleClick}>
-        <i className="material-icons grey">{this.state.iconName}</i>
+        <i className={"material-icons " + (theme.palette.type==='light' ? 'grey' : '')}>{this.state.iconName}</i>
       </button>
     </div>
     )
@@ -114,4 +114,4 @@ SearchBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SearchBar);
+export default withStyles(styles, { withTheme: true })(SearchBar);

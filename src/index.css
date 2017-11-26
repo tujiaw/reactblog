@@ -2,18 +2,28 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  /* background: rgb(236, 239, 241); */
 
-  background: #b3b3b0;
-  background: -webkit-linear-gradient(top, #b3b3b0 0%, #e3e2dd 500px);
-  background: linear-gradient(top, #b3b3b0 0%,#e3e2dd 500px);
-  background-repeat: no-repeat;
+  /* color: #333;
+  font: 13px Trebuchet MS, Lucida Sans Unicode, Arial, sans-serif;
+  background: #E2EBED;  */
+
+  /* color: #333331;
+  background: #554 url(http://www.csszengarden.com/135/bg.gif); */
+
+  /* background: #fff url(http://www.csszengarden.com/009/body-bg.png); */
+
+  /* background-image: url(http://www.csszengarden.com/208/body_bg.gif); */
+
+   /* color: #000000;
+  background: #fff url(http://www.csszengarden.com/070/BGTile.jpg) repeat left top;  */
+
+  /* background: rgba(0, 0, 0, 0.87) */
 }
 
-a {
+/* a {
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
-}
+} */

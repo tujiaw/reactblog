@@ -35,6 +35,9 @@ import { getPostData } from '../../actions/post'
 import { getTagPostsData } from '../../actions/tagPosts'
 import { getSearchPostsData } from '../../actions/searchPosts'
 
+import { AccountCircle, LightbulbOutline } from 'material-ui-icons';
+import config from '../../common/config'
+
 class App extends React.Component {
   state = {
     left: false,
@@ -145,6 +148,10 @@ class App extends React.Component {
     history.push('/')
   }
 
+  onLogin = () => {
+    window.open('http://3inns.cn/user/signin')
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -180,6 +187,12 @@ class App extends React.Component {
               <IconButton color="contrast" aria-label="主页"onClick={this.onHome}>
                 <i className="material-icons">home</i>
               </IconButton>
+              <IconButton color="contrast" aria-label="登录"onClick={this.onLogin}>
+                <AccountCircle />
+              </IconButton>
+              <IconButton color="contrast" aria-label="开关灯"onClick={this.props.onLight}>
+                <LightbulbOutline />
+              </IconButton>
             </Toolbar>
           </AppBar>
           <Grid container justify='center'>
@@ -196,7 +209,7 @@ class App extends React.Component {
               </main>
             </Grid>
           </Grid>
-        { Object.keys(this.props.postsData).length && <Footer />}
+        { Object.keys(this.props.postsData).length ? <Footer /> : null}
       </div>
     );
   }
@@ -208,6 +221,7 @@ const styles = theme => ({
     height: '100%',
     zIndex: 1,
     overflow: 'hidden',
+    background: theme.palette.background.default,
   },
   appFrame: {
     display: 'flex',

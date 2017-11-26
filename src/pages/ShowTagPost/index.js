@@ -5,10 +5,8 @@ import ListSubheader from 'material-ui/List/ListSubheader';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import { Divider } from 'material-ui'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import compose from 'recompose/compose'
 
-import fetch from '../../common/fetch'
 import Loading from '../../components/Loading'
 import history from '../../common/history'
 
@@ -16,7 +14,6 @@ const styles = theme => ({
   root: {
     width: '100%',
     marginTop: 20,
-    background: theme.palette.background.paper,
     overflow: 'auto',
   },
   listSection: {
