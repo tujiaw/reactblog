@@ -16,7 +16,13 @@ class AppTheme extends React.Component {
   state = {
     theme: createMuiTheme({
       palette: {
-        type: 'light'
+        type: 'light',
+        text: {
+          // title: '#2ca6cb',
+          title: '#3f51b5',
+          titleHover: '#7B68EE',
+          secondary: '#817c7c',
+        }
       },
     })
   }

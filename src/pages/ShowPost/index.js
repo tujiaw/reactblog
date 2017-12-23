@@ -49,9 +49,15 @@ const styles = theme => ({
     root: {
         marginTop: 20,
         background: theme.palette.common.darkWhite,
+        borderRadius: 5,
     },
     title: {
-        color: theme.palette.text.primary,
+        color: theme.palette.text.title,
+        textDecoration: 'none',
+        fontSize: '1.2em',
+        '&:hover': {
+          color: theme.palette.text.titleHover,
+        }
     },
     subTitle: {
         marginBottom: 6,

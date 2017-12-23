@@ -14,7 +14,7 @@ function PostCard(props) {
 
   return (
       <Card className={classes.root}>
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <Typography type="body1" className={classes.subTitle}>
           { objectId.toDatetime(post._id) } 阅读({ post.pv })
           </Typography>
@@ -43,15 +43,24 @@ const styles = theme => ({
       borderRadius: 5,
     },
     title: {
-      color: theme.palette.text.primary,
+      color: theme.palette.text.title,
+      textDecoration: 'none',
+      fontSize: '1.2em',
+      '&:hover': {
+        color: theme.palette.text.titleHover,
+      }
     },
     subTitle: {
       marginBottom: 6,
-      fontSize: 14,
+      fontSize: '.8em',
       color: theme.palette.text.secondary,
     },
+    cardContent: {
+      paddingBottom: '0',
+    },
     content: {
-      color: theme.palette.text.hint
+      fontSize: '1em',
+      color: theme.palette.text.secondary
     },
     chipGroup: {
         display: 'flex',

@@ -18,11 +18,14 @@ import LeftSideBar from '../../components/LeftSideBar'
 import Pagination from '../../components/Pagination'
 import NotifyBar from '../../components/NotifyBar'
 import Back2top from '../../components/Back2top'
+import Github from '../../components/Github'
+import AppSearch from '../../components/AppSearch.js'
 
 import TagList from './TagList'
 import HotPostList from './HotPostList'
-import SearchBarCard from './SearchBarCard';
+import ProfileCard from './ProfileCard'
 import PostCardList from './PostCardList'
+import ArchiveList from './ArchiveList'
 
 import Footer from './Footer'
 import NotFound from '../404'
@@ -112,19 +115,27 @@ class App extends React.Component {
   }
 
   RightSideBar = (props) => {
-    const { classes } = this.props;
+    const { classes } = props;
     return (
       <Grid item xs={4} className={classes.side}>
-        <SearchBarCard handleSearch={this.handleSearch} />
+        { 
+          props.postsData.profile &&
+          <ProfileCard profile={props.postsData.profile} />
+        }
         <br />
         { 
-          this.props.postsData.hotPosts && 
-          <HotPostList hotPosts={this.props.postsData.hotPosts} />
+          props.postsData.hotPosts && 
+          <HotPostList hotPosts={props.postsData.hotPosts} />
         }
         <br />
         {
-          this.props.postsData.tagsCount &&
-          <TagList tagsCount={this.props.postsData.tagsCount} />
+          props.postsData.tagsCount &&
+          <TagList tagsCount={props.postsData.tagsCount} />
+        }
+        <br />
+        {
+          props.postsData.archives &&
+          <ArchiveList archives={props.postsData.archives} />
         }
       </Grid> 
     )
@@ -148,8 +159,8 @@ class App extends React.Component {
     history.push('/')
   }
 
-  onLogin = () => {
-    window.open('http://3inns.cn/user/signin')
+  onGithub = () => {
+    window.open('https://github.com/tujiaw');
   }
 
   render() {
@@ -184,14 +195,15 @@ class App extends React.Component {
               <Typography type="title" color="inherit" className={classes.title} noWrap>
                 3inns.cn
               </Typography>
+              <AppSearch onRequestSearch={this.handleSearch}/>
               <IconButton color="contrast" aria-label="主页"onClick={this.onHome}>
                 <i className="material-icons">home</i>
               </IconButton>
-              <IconButton color="contrast" aria-label="登录"onClick={this.onLogin}>
-                <AccountCircle />
-              </IconButton>
               <IconButton color="contrast" aria-label="开关灯"onClick={this.props.onLight}>
                 <LightbulbOutline />
+              </IconButton>
+              <IconButton color="contrast" aria-label="github"onClick={this.onGithub}>
+                <Github />
               </IconButton>
             </Toolbar>
           </AppBar>
@@ -221,7 +233,7 @@ const styles = theme => ({
     height: '100%',
     zIndex: 1,
     overflow: 'hidden',
-    background: theme.palette.background.default,
+    background: theme.palette.grey[400],
   },
   appFrame: {
     display: 'flex',

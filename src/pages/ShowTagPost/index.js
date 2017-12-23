@@ -15,6 +15,12 @@ const styles = theme => ({
     width: '100%',
     marginTop: 20,
     overflow: 'auto',
+    background: theme.palette.background.paper,
+    borderRadius: 5,
+  },
+  subHeader: {
+    color: theme.palette.text.title,
+    fontWeight: 'bold'
   },
   listSection: {
     background: 'inherit',
@@ -35,7 +41,7 @@ class ShowTagPost extends React.Component {
     return (
       <div className={classes.root}>
       { data.archives 
-        ? <List dense={true} className={classes.root} subheader={<ListSubheader>{data.tagname}</ListSubheader>}>
+        ? <List dense={true} className={classes.root} subheader={<ListSubheader className={classes.subHeader}>{data.tagname}</ListSubheader>}>
           {data.archives.map((archive, i) => (
             <div key={'archives' + i} className={classes.listSection}>
               <Divider className={classes.divider}/>
