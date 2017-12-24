@@ -42,24 +42,25 @@ class App extends React.Component {
   };
 
   listener = () => {
-    console.log(history.location)
-
     const { location } = history
     if (location.pathname === '/') {
       this.props.getHomeData(location.pathname + location.search)
     } else if (location.pathname.startsWith('/post')) {
       this.props.getPostData(location.pathname)
-    } else if (location.pathname.startsWith('/tags')) {
-      this.props.getTagPostsData(location.pathname)
     } else if (location.pathname.startsWith('/title')) {
-      console.log(location)
       this.props.getTitleList(location.pathname + location.search)
     }
   }
 
   componentDidMount() {
+    console.log(history.location)
     window.addEventListener('hashchange', this.listener, false)
     this.props.getHomeData('/')
+    if (history.location) {
+      if (history.location.pathname !== '/') {
+        this.listener()
+      }
+    }
   }
 
   componentWillUnmount() {

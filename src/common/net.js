@@ -1,12 +1,11 @@
-import axios from 'axios'
 import config from './config'
 
 function getData(url) {
     return new Promise((resolve, reject) => {
         console.log('get url:' + url)
-        axios.get(url).then((res) => {
-            if (res && res.data) {
-                resolve(res.data);
+        fetch(url).then((res) => {
+            if (res && res.json) {
+                resolve(res.json());
                 window.scrollTo(0, 0)
             }
         }).catch((error) => {
@@ -16,7 +15,7 @@ function getData(url) {
     })
 }
 
-const fetch = {
+const net = {
     getUrl: (url) =>{
         return getData(config.API_PREFIX + url);
     },
@@ -35,4 +34,4 @@ const fetch = {
     }
 }
 
-export default fetch;
+export default net;

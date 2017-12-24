@@ -1,5 +1,5 @@
 import ActionsType from '.'
-import fetch from '../common/fetch'
+import net from '../common/net'
 
 export const update = (data) => {
   return {
@@ -13,7 +13,7 @@ export const update = (data) => {
 // http://3inns.cn/title?type=archive&keyword=2017-08
 export const getTitleList = (url) => {
   return (dispatch, getState) => {
-    fetch.getUrl(url).then((data) => {
+    net.getUrl(url).then((data) => {
       dispatch(update(data))
     })
   }
