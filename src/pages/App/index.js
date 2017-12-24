@@ -12,34 +12,27 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import history from '../../common/history'
-import fetch from '../../common/fetch'
 
-import LeftSideBar from '../../components/LeftSideBar'
 import Pagination from '../../components/Pagination'
 import NotifyBar from '../../components/NotifyBar'
 import Back2top from '../../components/Back2top'
 import Github from '../../components/Github'
 import AppSearch from '../../components/AppSearch.js'
 
-import TagList from './TagList'
-import HotPostList from './HotPostList'
-import ProfileCard from './ProfileCard'
 import PostCardList from './PostCardList'
-import ArchiveList from './ArchiveList'
+import LeftSidebar from '../LeftSidebar'
+import RightSidebar from '../RightSidebar'
 
 import Footer from './Footer'
 import NotFound from '../404'
 import ShowPost from '../ShowPost'
-import ShowTagPost from '../ShowTagPost'
-import ShowSearchPost from '../ShowSearchPost'
+import ShowTitleList from '../ShowTitleList'
 
 import { getHomeData } from '../../actions/home'
 import { getPostData } from '../../actions/post'
-import { getTagPostsData } from '../../actions/tagPosts'
-import { getSearchPostsData } from '../../actions/searchPosts'
+import { getTitleList } from '../../actions/titleList'
 
-import { AccountCircle, LightbulbOutline } from 'material-ui-icons';
-import config from '../../common/config'
+import { LightbulbOutline } from 'material-ui-icons';
 
 class App extends React.Component {
   state = {
@@ -58,8 +51,9 @@ class App extends React.Component {
       this.props.getPostData(location.pathname)
     } else if (location.pathname.startsWith('/tags')) {
       this.props.getTagPostsData(location.pathname)
-    } else if (location.pathname.startsWith('/search')) {
-      this.props.getSearchPostsData(location.pathname + location.search)
+    } else if (location.pathname.startsWith('/title')) {
+      console.log(location)
+      this.props.getTitleList(location.pathname + location.search)
     }
   }
 
@@ -91,8 +85,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={this.HomePage} />
           <Route path="/post/:id" component={ShowPost} />
-          <Route path="/tags/:tagname" component={ShowTagPost} />
-          <Route path="/search" component={ShowSearchPost} />
+          <Route path="/title" component={ShowTitleList} />
           <Route component={NotFound} />
         </Switch>
       </Router>
@@ -110,35 +103,8 @@ class App extends React.Component {
     } else if (keyword.length === 1) {
       this.setState({ notifyBarOpen: true, notifyBarText: '请至少输入两个字符！！！' })
     } else if (keyword.length > 1) {
-      history.push('/search?keyword=' + encodeURIComponent(keyword))
+      history.push('/title?type=search&keyword=' + encodeURIComponent(keyword))
     } 
-  }
-
-  RightSideBar = (props) => {
-    const { classes } = props;
-    return (
-      <Grid item xs={4} className={classes.side}>
-        { 
-          props.postsData.profile &&
-          <ProfileCard profile={props.postsData.profile} />
-        }
-        <br />
-        { 
-          props.postsData.hotPosts && 
-          <HotPostList hotPosts={props.postsData.hotPosts} />
-        }
-        <br />
-        {
-          props.postsData.tagsCount &&
-          <TagList tagsCount={props.postsData.tagsCount} />
-        }
-        <br />
-        {
-          props.postsData.archives &&
-          <ArchiveList archives={props.postsData.archives} />
-        }
-      </Grid> 
-    )
   }
 
   toggleDrawer = (side, open) => () => {
@@ -180,7 +146,7 @@ class App extends React.Component {
             onClick={this.toggleDrawer('left', false)}
             onKeyDown={this.toggleDrawer('left', false)}
           >
-            <LeftSideBar />
+            <LeftSidebar />
           </div>
         </Drawer>
           <AppBar className={classes.appBar}>
@@ -215,7 +181,7 @@ class App extends React.Component {
                     { this.ContentRouter() }
                   </Grid>
                   <Hidden smDown>
-                    { this.RightSideBar(this.props) }
+                    <RightSidebar data={this.props.postsData} />
                   </Hidden>
                 </Grid>
               </main>
@@ -280,8 +246,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getHomeData: bindActionCreators(getHomeData, dispatch),
     getPostData: bindActionCreators(getPostData, dispatch),
-    getTagPostsData: bindActionCreators(getTagPostsData, dispatch),
-    getSearchPostsData: bindActionCreators(getSearchPostsData, dispatch),
+    getTitleList: bindActionCreators(getTitleList, dispatch),
   }
 }
 

@@ -65,6 +65,13 @@ function scrollToY(scrollTargetY, speed, easing) {
 const utils = {
   scroll2top: () => {
     scrollToY(0, 1500);
+  },
+  isEmptyObject: (e) => {
+    var t;
+    for (t in e) {
+        return !1;
+    }
+    return !0;
   }
 }
 

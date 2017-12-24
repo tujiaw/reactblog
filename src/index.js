@@ -8,8 +8,6 @@ import thunk from 'redux-thunk'
 import appReducers from './reducers'
 import './index.css';
 import App from './pages/App/';
-import purple from 'material-ui/colors/purple';
-import green from 'material-ui/colors/green';
 
 let store = createStore(appReducers, applyMiddleware(thunk))
 class AppTheme extends React.Component {
